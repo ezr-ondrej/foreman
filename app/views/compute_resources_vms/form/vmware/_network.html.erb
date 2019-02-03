@@ -2,7 +2,12 @@
   :class => "col-md-3 vmware_type",
   :label => _('NIC type'), :label_size => "col-md-3", :disabled => !new_vm
 %>
-<%= select_f f, :network, vsphere_networks(compute_resource), :first, :last, { },
-  :class => "col-md-3 vmware_network",
-  :label => _('Network'), :label_size => "col-md-3", :disabled => !new_vm
-%>
+<% if new_vm %>
+  <%= select_f f, :network, vsphere_networks(compute_resource), :first, :last, { },
+    :class => "col-md-3 vmware_network",
+    :label => _('Network'), :label_size => "col-md-3"
+  %>
+<% else %>
+  <%= text_f f, :network, :value => f.object.network && compute_resource.network(f.object.network)&.name, :class => 'col-md-3 vmware_network', :label => _("Network"), :label_size => "col-md-3", :readonly => true %>
+  <%= f.hidden_field :network %>
+<% end %>

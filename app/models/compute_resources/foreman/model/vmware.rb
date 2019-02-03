@@ -141,6 +141,13 @@ module Foreman::Model
       end
     end
 
+    ##
+    # Fog implementation of networks.get(id) is not working.
+    # This is a workaround.
+    def network(network_id)
+      networks.detect{|n| n.id == network_id}
+    end
+
     def networks(opts = {})
       cache.cache(:networks) do
         name_sort(dc.networks.all(:accessible => true))
