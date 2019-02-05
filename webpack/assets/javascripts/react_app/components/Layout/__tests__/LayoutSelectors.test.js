@@ -14,7 +14,7 @@ const state = {
     activeMenu: 'Hosts',
     currentOrganization: { title: 'org1' },
     currentLocation: { title: 'loc1' },
-    isLoading: true,
+    isLoading: 1,
   },
 };
 

@@ -16,7 +16,7 @@ import Layout from './Layout';
 // map state to props
 const mapStateToProps = state => ({
   items: patternflyMenuItemsSelector(state),
-  isLoading: selectIsLoading(state),
+  isLoading: selectIsLoading(state) > 0,
   activeMenu: selectActiveMenu(state),
   currentOrganization: selectCurrentOrganization(state),
   currentLocation: selectCurrentLocation(state),

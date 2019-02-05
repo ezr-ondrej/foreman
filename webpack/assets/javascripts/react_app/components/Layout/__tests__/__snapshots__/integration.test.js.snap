@@ -159,7 +159,7 @@ Object {
         "id": 2,
         "title": "org2",
       },
-      "isLoading": false,
+      "isLoading": 0,
       "items": Array [
         Object {
           "active": false,
@@ -327,7 +327,7 @@ Object {
         "id": 1,
         "title": "org1",
       },
-      "isLoading": false,
+      "isLoading": 0,
       "items": Array [
         Object {
           "active": true,
@@ -495,7 +495,7 @@ Object {
         "id": 2,
         "title": "org2",
       },
-      "isLoading": false,
+      "isLoading": 0,
       "items": Array [
         Object {
           "active": true,
@@ -649,7 +649,7 @@ Object {
       "id": 1,
       "title": "org1",
     },
-    "isLoading": false,
+    "isLoading": 0,
     "items": Array [
       Object {
         "active": true,

@@ -11,7 +11,7 @@ import {
 
 const initialState = Immutable({
   items: [],
-  isLoading: false,
+  isLoading: 0,
   activeMenu: '',
   currentOrganization: { title: 'Any Organization' },
   currentLocation: { title: 'Any Location' },
@@ -22,10 +22,10 @@ export default (state = initialState, action) => {
 
   switch (type) {
     case LAYOUT_SHOW_LOADING:
-      return state.set('isLoading', true);
+      return state.set('isLoading', state.isLoading + 1);
 
     case LAYOUT_HIDE_LOADING:
-      return state.set('isLoading', false);
+      return state.set('isLoading', state.isLoading - 1);
 
     case LAYOUT_UPDATE_ITEMS:
       if (!isEmpty(activeMenu)) return state.merge({ items, activeMenu });

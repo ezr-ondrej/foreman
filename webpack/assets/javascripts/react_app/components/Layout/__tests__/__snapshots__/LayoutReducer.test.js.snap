@@ -7,7 +7,7 @@ Object {
   "currentOrganization": Object {
     "title": "Any Organization",
   },
-  "isLoading": false,
+  "isLoading": 0,
   "items": Array [],
 }
 `;
@@ -19,7 +19,7 @@ Object {
     "title": "Any Location",
   },
   "currentOrganization": "org1",
-  "isLoading": false,
+  "isLoading": 0,
   "items": Array [],
 }
 `;
@@ -33,7 +33,7 @@ Object {
   "currentOrganization": Object {
     "title": "Any Organization",
   },
-  "isLoading": false,
+  "isLoading": -1,
   "items": Array [],
 }
 `;
@@ -47,7 +47,7 @@ Object {
   "currentOrganization": Object {
     "title": "Any Organization",
   },
-  "isLoading": true,
+  "isLoading": 1,
   "items": Array [],
 }
 `;
@@ -61,7 +61,7 @@ Object {
   "currentOrganization": Object {
     "title": "Any Organization",
   },
-  "isLoading": false,
+  "isLoading": 0,
   "items": Array [
     Object {
       "href": "/a",
@@ -97,7 +97,7 @@ Object {
   "currentOrganization": Object {
     "title": "Any Organization",
   },
-  "isLoading": false,
+  "isLoading": 0,
   "items": Array [
     Object {
       "href": "/a",
@@ -133,7 +133,7 @@ Object {
   "currentOrganization": Object {
     "title": "Any Organization",
   },
-  "isLoading": false,
+  "isLoading": 0,
   "items": Array [],
 }
 `;

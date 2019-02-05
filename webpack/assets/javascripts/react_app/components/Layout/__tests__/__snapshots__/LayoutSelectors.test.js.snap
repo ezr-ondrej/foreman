@@ -9,7 +9,7 @@ Object {
   "currentOrganization": Object {
     "title": "org1",
   },
-  "isLoading": true,
+  "isLoading": 1,
   "items": Array [
     Object {
       "active": false,
@@ -190,7 +190,7 @@ Array [
 
 exports[`Layout selectors should return empty array of items 1`] = `Array []`;
 
-exports[`Layout selectors should return isLoading from selector 1`] = `true`;
+exports[`Layout selectors should return isLoading from selector 1`] = `1`;
 
 exports[`Layout selectors should return location from selector 1`] = `"loc1"`;
 
