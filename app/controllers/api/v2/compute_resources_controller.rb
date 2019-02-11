@@ -3,6 +3,7 @@ module Api
     class ComputeResourcesController < V2::BaseController
       include Api::Version2
       include Foreman::Controller::Parameters::ComputeResource
+      include Concerns::ComputeResourcesDeprecations
 
       wrap_parameters ComputeResource, :include => compute_resource_params_filter.accessible_attributes(parameter_filter_context)
 
@@ -145,18 +146,11 @@ module Api
       end
 
       api :GET, "/compute_resources/:id/available_storage_domains", N_("List storage domains for a compute resource")
-      api :GET, "/compute_resources/:id/available_storage_domains/:storage_domain", N_("List attributes for a given storage domain")
       api :GET, "/compute_resources/:id/available_clusters/:cluster_id/available_storage_domains", N_("List storage domains for a compute resource")
       param :id, :identifier, :required => true
       param :cluster_id, String
-      param :storage_domain, String
       def available_storage_domains
-        if params[:storage_domain]
-          # backward compatibility
-          @available_storage_domains = [@compute_resource.storage_domain(params[:storage_domain])]
-        else
-          @available_storage_domains = @compute_resource.available_storage_domains(params[:cluster_id].presence)
-        end
+        @available_storage_domains = @compute_resource.available_storage_domains(params[:cluster_id].presence)
         @total = @available_storage_domains&.size
         render :available_storage_domains, :layout => 'api/v2/layouts/index_layout'
       end
@@ -169,18 +163,12 @@ module Api
       end
 
       api :GET, "/compute_resources/:id/available_storage_pods", N_("List storage pods for a compute resource")
-      api :GET, "/compute_resources/:id/available_storage_pods/:storage_pod", N_("List attributes for a given storage pod")
       api :GET, "/compute_resources/:id/available_clusters/:cluster_id/available_storage_pods", N_("List storage pods for a compute resource")
       param :id, :identifier, :required => true
       param :cluster_id, String
       param :storage_pod, String
       def available_storage_pods
-        if params[:storage_pod]
-          # backward compatibility
-          @available_storage_pods = [@compute_resource.storage_pod(params[:storage_pod])]
-        else
-          @available_storage_pods = @compute_resource.available_storage_pods(params[:cluster_id].presence)
-        end
+        @available_storage_pods = @compute_resource.available_storage_pods(params[:cluster_id].presence)
         @total = @available_storage_pods&.size
         render :available_storage_pods, :layout => 'api/v2/layouts/index_layout'
       end
