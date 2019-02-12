@@ -1,5 +1,7 @@
 import { uniq, set } from 'lodash';
+import store from './react_app/redux';
 import * as table from './hosts/tableCheckboxes';
+import * as interfaceActions from './react_app/redux/actions/hosts/interfaces';
 
 export default {
   table,
@@ -42,6 +44,40 @@ export function getAttributesToPost(componentType) {
   }
   return uniq(attrsToPost);
 }
+
+export const fqdn = (name, domain) => {
+  if (!name || !domain) return '';
+
+  return `${name}.${domain}`;
+};
+
+export const initializeInterfaces = interfaces => {
+  store.dispatch(interfaceActions.initializeInterfaces(interfaces));
+};
+
+export const addInterface = (data = {}) => {
+  store.dispatch(interfaceActions.addInterface(data));
+};
+
+export const updateInterface = (id, newValues) => {
+  store.dispatch(interfaceActions.updateInterface(id, newValues));
+};
+
+export const removeInterface = id => {
+  store.dispatch(interfaceActions.removeInterface(id));
+};
+
+export const setPrimaryInterface = id => {
+  store.dispatch(interfaceActions.setPrimaryInterface(id));
+};
+
+export const setProvisionInterface = id => {
+  store.dispatch(interfaceActions.setProvisionInterface(id));
+};
+
+export const setPrimaryInterfaceName = newName => {
+  store.dispatch(interfaceActions.setPrimaryInterfaceName(newName));
+};
 
 class PXECompatibilityCheck {
   constructor(regexp, compatibleLoadersFunc) {

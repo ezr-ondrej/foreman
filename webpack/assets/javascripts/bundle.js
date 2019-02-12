@@ -3,6 +3,7 @@ import compute from './foreman_compute_resource';
 import componentRegistry from './react_app/components/componentRegistry';
 import i18n from './react_app/common/I18n';
 import * as document from './react_app/common/document';
+import { store, observeStore } from './react_app/redux';
 import hosts from './foreman_hosts';
 import * as store from './foreman_store';
 import * as authSource from './foreman_auth_source';
@@ -62,4 +63,6 @@ window.tfm = Object.assign(window.tfm || {}, {
   document,
   componentRegistry,
   store,
+  observeStore,
+  subscribe: fn => store.subscribe(() => fn.apply({}, [store.getState])),
 });
