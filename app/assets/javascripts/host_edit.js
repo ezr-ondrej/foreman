@@ -9,7 +9,6 @@ $(document).on('AddedClass', function(event, link) {
 
 function update_nics(success_callback) {
   var data = serializeForm().replace('method=patch', 'method=post');
-  tfm.reactMounter.unmount('#interfaceListWrapper');
   tfm.hosts.initializeInterfaces([]);
   $('#network').html(
     spinner_placeholder(__('Loading interfaces information ...'))

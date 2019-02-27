@@ -18,6 +18,7 @@ import * as numFields from './jquery.ui.custom_spinners';
 import * as reactMounter from './react_app/common/MountingService';
 import * as editor from './foreman_editor';
 import * as nav from './foreman_navigation';
+import * as nestedForms from './foreman_nested_forms';
 import * as medium from './foreman_medium';
 import * as templateInputs from './foreman_template_inputs';
 import * as advancedFields from './foreman_advanced_fields';
@@ -51,6 +52,7 @@ window.tfm = Object.assign(window.tfm || {}, {
   reactMounter,
   editor,
   nav,
+  nestedForms,
   medium,
   templateInputs,
   advancedFields,
