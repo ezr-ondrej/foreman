@@ -38,3 +38,11 @@ export const generateTemplate = (url, templateInputData) => {
 export const pollReportData = url => {
   store.dispatch(TemplateActions.pollReportData(url));
 };
+
+export const inputValueOnchange = valueType => {
+  const searchValue = valueType.value === 'search';
+  const plainValue = valueType.value === 'plain';
+
+  $('.resource-type').toggle(searchValue);
+  $('.input-options').toggle(plainValue);
+};
