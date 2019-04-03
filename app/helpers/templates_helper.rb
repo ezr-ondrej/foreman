@@ -65,7 +65,7 @@ module TemplatesHelper
     controller = input.resource_type.tableize
 
     mount_react_component('TemplateInput', "#template-input-#{input.id}", {
-      initialQuery: '',
+      value: input_value.value.to_s,
       required: input.required,
       template: 'report_template_report',
       description: input.description,

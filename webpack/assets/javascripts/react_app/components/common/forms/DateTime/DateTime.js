@@ -18,6 +18,7 @@ const DateTime = ({
   initialError,
 }) => {
   const currentLocale = locale || documentLocale();
+  const isBlank = v => !v || !v.length;
 
   return (
     <Form
@@ -35,8 +36,8 @@ const DateTime = ({
       }
     >
       <DateTimePicker
-        hiddenValue={isRequired}
-        value={value}
+        hiddenValue={isBlank(value) && !isRequired}
+        value={!isBlank(value) ? value : new Date}
         id={`template-date-input-${id}`}
         inputProps={{
           name: `${template}[input_values][${id}][value]`,

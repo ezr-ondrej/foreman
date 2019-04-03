@@ -34,6 +34,7 @@ const TemplateInput = ({
           resourceType={resourceType}
           url={url}
           template={template}
+          initialQuery={value}
         />
       );
     case date:
@@ -64,6 +65,7 @@ TemplateInput.propTypes = {
     required: PropTypes.bool,
     supportedTypes: PropTypes.arrayOf(PropTypes.string).isRequired,
     template: PropTypes.string.isRequired,
+    value: PropTypes.string,
   }),
 };
 
@@ -75,6 +77,7 @@ TemplateInput.defaultProps = {
     initialError: null,
     description: null,
     required: false,
+    value: '',
   }),
 };
 

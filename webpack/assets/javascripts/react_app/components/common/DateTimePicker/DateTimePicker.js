@@ -20,7 +20,7 @@ class DateTimePicker extends React.Component {
       value: new Date(this.props.value),
       typeOfDateInput: MONTH,
       isTimeTableOpen: false,
-      hiddenValue: !this.props.hiddenValue,
+      hiddenValue: !!this.props.hiddenValue,
     };
   }
 
