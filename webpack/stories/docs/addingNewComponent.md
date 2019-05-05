@@ -95,12 +95,12 @@ If you want your component to be available for mounting into erb templates, you 
 
 Then it will be possible to mount it with `mount_react_component` helper:
 ```ruby
-mount_react_component(component_name, html_node_selector, json_data)
+react_component(component_name, json_data)
 ```
 
 **Example:**
 ```erb
-<%= mount_react_component('PowerStatus', '#power', {:id => host.id, :url => power_host_path(host.id)}.to_json) %>
+<%= react_component('PowerStatus', {:id => host.id, :url => power_host_path(host.id)}.to_json) %>
 ```
 
 ## Before you start writing a new component

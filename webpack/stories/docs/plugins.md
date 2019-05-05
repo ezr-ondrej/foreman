@@ -7,15 +7,15 @@ There are three ways how components provided by Foreman core can be re-used:
 ### Mounting components into erb
 
 No special setup is required and you can re-use React components that are available in `componentRegistry` even when you plugin doesn't use webpack.
-Components can be mounted into erb using `mount_react_component` helper:
+Components can be mounted into erb using `react_component` helper:
 
 ```ruby
-mount_react_component(component_name, html_node_selector, json_data)
+react_component(component_name, json_data)
 ```
 
 **Example:**
 ```erb
-<%= mount_react_component('PowerStatus', '#power', {:id => host.id, :url => power_host_path(host.id)}.to_json) %>
+<%= react_component('PowerStatus', {:id => host.id, :url => power_host_path(host.id)}.to_json) %>
 ```
 
 The list of available compoennts is [here](https://github.com/theforeman/foreman/blob/develop/webpack/assets/javascripts/react_app/components/componentRegistry.js#L60).
