@@ -494,7 +494,6 @@ in core:
 [source, ERB]
 ....
  <%= webpacked_plugins_js_for :foreman_plugin, :foreman_other_plugin %>
- <span id=my_id></span>
  <%= react_component('MyComponent', { :id => '5', :name => 'whatever' }.to_json) %>
 ....
 
