@@ -3,6 +3,7 @@ import compute from './foreman_compute_resource';
 import componentRegistry from './react_app/components/componentRegistry';
 import i18n from './react_app/common/I18n';
 import * as document from './react_app/common/document';
+import { store, observeStore } from './react_app/redux';
 import hosts from './foreman_hosts';
 import * as store from './foreman_store';
 import * as authSource from './foreman_auth_source';
@@ -17,6 +18,7 @@ import * as numFields from './jquery.ui.custom_spinners';
 import * as reactMounter from './react_app/common/MountingService';
 import * as editor from './foreman_editor';
 import * as nav from './foreman_navigation';
+import * as nestedForms from './foreman_nested_forms';
 import * as medium from './foreman_medium';
 import * as templateInputs from './foreman_template_inputs';
 import * as advancedFields from './foreman_advanced_fields';
@@ -50,6 +52,7 @@ window.tfm = Object.assign(window.tfm || {}, {
   reactMounter,
   editor,
   nav,
+  nestedForms,
   medium,
   templateInputs,
   advancedFields,
@@ -62,4 +65,6 @@ window.tfm = Object.assign(window.tfm || {}, {
   document,
   componentRegistry,
   store,
+  observeStore,
+  subscribe: fn => store.subscribe(() => fn.apply({}, [store.getState])),
 });

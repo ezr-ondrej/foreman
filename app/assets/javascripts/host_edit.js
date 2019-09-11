@@ -9,6 +9,7 @@ $(document).on('AddedClass', function(event, link) {
 
 function update_nics(success_callback) {
   var data = serializeForm().replace('method=patch', 'method=post');
+  tfm.hosts.initializeInterfaces([]);
   $('#network').html(
     spinner_placeholder(__('Loading interfaces information ...'))
   );
@@ -30,7 +31,6 @@ function update_nics(success_callback) {
       $('#network').html(result);
       if ($('#network').find('.alert-danger').length > 0)
         $('#network_tab a').addClass('tab-error');
-      update_interface_table();
       success_callback();
     },
   });
@@ -551,7 +551,6 @@ function load_with_placeholder(target, url, data) {
 }
 
 function onHostEditLoad() {
-  update_interface_table();
   tfm.hostgroups.checkForUnavailablePuppetclasses();
 
   $('#host-conflicts-modal').modal({ show: 'true', backdrop: 'static' });
@@ -783,11 +782,11 @@ function interface_subnet_selected(element, ip_field, skip_mac) {
   // mark the selected value to preserve it for form hiding
   preserve_selected_options($(element));
 
+  var $fieldset = $(element).closest('fieldset');
+  var interface_id = $fieldset.parent().data('interface-id');
   var subnet_id = $(element).val();
   if (subnet_id == '') return;
-  var interface_ip = $(element)
-    .closest('fieldset')
-    .find('input[id$=_' + ip_field + ']');
+  var interface_ip = $fieldset.find('input[id$=_' + ip_field + ']');
 
   toggle_suggest_new_link(element, ip_field);
 
@@ -845,8 +844,7 @@ function interface_subnet_selected(element, ip_field, skip_mac) {
     dataType: 'json',
     success: function(result) {
       clearError(interface_ip);
-      interface_ip.val(result['ip']);
-      update_interface_table();
+      tfm.hosts.updateInterface(interface_id, {[ip_field]: result['ip']});
       clearError(interface_mac);
       if ('errors' in result) {
         if ('mac' in result['errors']) {

@@ -13,6 +13,7 @@ import LongDateTime from './common/dates/LongDateTime';
 import ShortDateTime from './common/dates/ShortDateTime';
 import IsoDate from './common/dates/IsoDate';
 import FormField from './common/forms/FormField';
+import InterfaceTable from './hosts/interfaces/InterfaceTable';
 import StorageContainer from './hosts/storage/vmware/';
 import PasswordStrength from './PasswordStrength';
 import BreadcrumbBar from './BreadcrumbBar';
@@ -114,6 +115,7 @@ const coreComponets = [
   { name: 'PowerStatus', type: PowerStatus },
   { name: 'NotificationContainer', type: NotificationContainer },
   { name: 'ToastNotifications', type: ToastsList, data: false },
+  { name: 'InterfaceTable', type: InterfaceTable },
   { name: 'StorageContainer', type: StorageContainer },
   { name: 'PasswordStrength', type: PasswordStrength },
   { name: 'BreadcrumbBar', type: BreadcrumbBar },
