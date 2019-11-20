@@ -1,0 +1,11 @@
+<tr>
+  <td>
+    <%= f.text_field(:name, class: "form-control", disabled: !editable, placeholder: _("Name")) %>
+  </td>
+  <td>
+    <%= f.text_field(:value, class: "form-control", disabled: !editable, placeholder: _("Tag")) %>
+  </td>
+  <td>
+    <%= link_to_remove_fields(_('Remove'), f, title: _('Remove tag')) if editable %>
+  </td>
+</tr>

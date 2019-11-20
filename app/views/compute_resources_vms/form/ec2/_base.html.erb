@@ -1,6 +1,6 @@
 <%= select_f f, :flavor_id, compute_resource.flavors, :id, :to_label, {}, :label => _('Flavor'), :label_size => "col-md-2" %>
 <%
-arch ||= nil ; os ||= nil
+arch ||= nil ; os ||= nil ; tags = {}
 images = possible_images(compute_resource, arch, os)
 %>
 
@@ -31,3 +31,22 @@ images = possible_images(compute_resource, arch, os)
 
   <%= selectable_f f, :managed_ip, {_("Public")=>'public', _("Private")=>'private'}, {}, { :label => _("Managed IP"), :label_size => "col-md-2" } %>
 </div>
+
+<div class="col-md-6">
+  <table id="ec2_tags" class="<%= table_css_classes %>">
+    <thead>
+      <th><%= _('Name') %></th>
+      <th><%= _('Value') %></th>
+      <th><%= _('Actions') %></th>
+    </thead>
+    <tbody>
+      <% tags.each do |key, val| %>
+        <%= f.fields_for :tags, OpenStruct.new(name: key, value: val) do |fields| %>
+          <%= render "compute_resources_vms/form/ec2/ec2_tag", f: builder, editable: f.object.new_record? %>
+        <% end %>
+      <% end %>
+    </tbody>
+  </table>
+  <%= link_to_add_fields('+ ' + _("Add tag"), f, :tags, "compute_resources_vms/form/ec2/ec2_tag", { :target => '#ec2_tags tbody', object: OpenStruct.new(name: nil, value: nil), locals: { editable: f.object.new_record? } }) %>
+</div>
+<br /><br />
