@@ -43,6 +43,14 @@ class Api::V2::HostgroupsControllerTest < ActionController::TestCase
     assert show_response.has_key?('parameters')
   end
 
+  test "should show inherited parameters" do
+    get :show, params: { :id => hostgroups(:common).to_param }
+    assert_response :success
+    show_response = ActiveSupport::JSON.decode(@response.body)
+    assert !show_response.empty?
+    assert show_response.has_key?('inherited_compute_profile_id')
+  end
+
   test "should show all puppet clases for individual record" do
     hostgroup = FactoryBot.create(:hostgroup, :with_config_group)
     get :show, params: { :id => hostgroup.id }

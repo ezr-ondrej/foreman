@@ -7,7 +7,11 @@ attributes :subnet_id, :subnet_name, :operatingsystem_id, :operatingsystem_name,
   :environment_id, :environment_name, :compute_profile_id, :compute_profile_name, :ancestry, :parent_id, :parent_name,
   :ptable_id, :ptable_name, :medium_id, :medium_name, :pxe_loader,
   :subnet6_id, :subnet6_name, :compute_resource_id, :compute_resource_name,
-  :architecture_id, :architecture_name, :realm_id, :realm_name, :created_at, :updated_at
+  :architecture_id, :architecture_name, :realm_id, :realm_name, :created_at, :updated_at,
+  :inherited_compute_profile_id, :inherited_environment_id, :inherited_domain_id, :inherited_puppet_proxy_id,
+  :inherited_puppet_ca_proxy_id, :inherited_compute_resource_id, :inherited_operatingsystem_id,
+  :inherited_architecture_id, :inherited_medium_id, :inherited_ptable_id, :inherited_subnet_id, :inherited_subnet6_id,
+  :inherited_realm_id
 
 if @parameters
   node do |hostgroup|
