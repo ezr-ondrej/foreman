@@ -5,6 +5,9 @@ module FogExtensions
 
       attr_accessor :managed_ip
 
+      # hack for tags form work properly
+      def tags_attributes=(tags);end
+
       def to_s
         tags.try(:[], 'Name') || identity
       end

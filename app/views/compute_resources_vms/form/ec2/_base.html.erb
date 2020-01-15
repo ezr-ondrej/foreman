@@ -40,13 +40,11 @@ images = possible_images(compute_resource, arch, os)
       <th><%= _('Actions') %></th>
     </thead>
     <tbody>
-      <% tags.each do |key, val| %>
-        <%= f.fields_for :tags, OpenStruct.new(name: key, value: val) do |fields| %>
-          <%= render "compute_resources_vms/form/ec2/ec2_tag", f: builder, editable: f.object.new_record? %>
-        <% end %>
+      <%= f.fields_for :tags, OpenStruct.new(name: key, value: val) do |fields| %>
+        <%= render "compute_resources_vms/form/ec2/ec2_tag", f: fields, editable: f.object.new_record? %>
       <% end %>
     </tbody>
   </table>
-  <%= link_to_add_fields('+ ' + _("Add tag"), f, :tags, "compute_resources_vms/form/ec2/ec2_tag", { :target => '#ec2_tags tbody', object: OpenStruct.new(name: nil, value: nil), locals: { editable: f.object.new_record? } }) %>
+  <%= link_to_add_fields('+ ' + _("Add tag"), f, :tags, "compute_resources_vms/form/ec2/ec2_tag", { :target => '#ec2_tags tbody', object: [OpenStruct.new(name: nil, value: nil)], locals: { editable: f.object.new_record? } }) %>
 </div>
 <br /><br />
