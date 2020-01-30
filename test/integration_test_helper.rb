@@ -154,13 +154,13 @@ class ActionDispatch::IntegrationTest
     has_editor_display?(css_locator, text)
   end
 
-  def login_user(username, password)
+  def login_user(username, password, assert_current_path = true)
     logout_admin
     visit "/"
     fill_in "login_login", :with => username
     fill_in "login_password", :with => password
     click_button "Log In"
-    assert_current_path root_path
+    assert_current_path root_path if assert_current_path
   end
 
   def set_empty_default_context(user)

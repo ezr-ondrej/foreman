@@ -20,6 +20,17 @@ class UserIntegrationTest < IntegrationTestWithJavascript
     test "login" do
       login_user(users(:admin).login, "secret")
     end
+
+    test "attempt to login disabled user via internal authentication" do
+      user(:one).update(disabled: true)
+      login_user(users(:one).login, "secret", false)
+      assert page.has_content? 'disabled'
+    end
+
+    test "attempt to login disabled user via external authentication" do
+      login_user(users(:external_disabled).login, "password", false)
+      assert page.has_content? 'disabled'
+    end
   end
 
   test "create new user" do

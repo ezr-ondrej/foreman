@@ -127,6 +127,9 @@ class UsersController < ApplicationController
         count_login_failure
         telemetry_increment_counter(:failed_ui_logins)
         redirect_to login_users_path
+      elsif user.disabled?
+        inline_error _("User account is disabled, please contact your administrator")
+        redirect_to login_users_path
       else
         # valid user
         # If any of the user attributes provided by external auth source are invalid then throw a flash message to user on successful login.
@@ -145,7 +148,13 @@ class UsersController < ApplicationController
   def extlogin
     if session[:user]
       user = User.find_by_id(session[:user])
-      login_user(user)
+      if user.disabled?
+        error _('User account is disabled, please contact your administrator')
+        redirect_to login_users_path
+        return
+      else
+        login_user(user)
+      end
       user.post_successful_login
     end
   end
@@ -214,7 +223,7 @@ class UsersController < ApplicationController
   end
 
   def verify_active_session
-    if !request.post? && params[:status].blank? && User.unscoped.exists?(session[:user].presence)
+    if !request.post? && params[:status].blank? && User.unscoped.enabled.exists?(session[:user].presence)
       warning _("You have already logged in")
       redirect_back_or_to hosts_path
       nil
