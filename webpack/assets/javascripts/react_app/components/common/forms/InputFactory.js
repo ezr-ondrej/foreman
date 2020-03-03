@@ -8,11 +8,13 @@ import DateTimePicker from '../DateTimePicker/DateTimePicker';
 import DatePicker from '../DateTimePicker/DatePicker';
 import OrderableSelect from './OrderableSelect';
 import TimePicker from '../DateTimePicker/TimePicker';
+import DualList from '../../DualList/DualList';
 
 const inputComponents = {
   autocomplete: AutoComplete,
   date: DatePicker,
   dateTime: DateTimePicker,
+  dualList: DualList,
   orderableSelect: OrderableSelect,
   time: TimePicker,
 };
@@ -36,6 +38,9 @@ InputFactory.propTypes = {
     PropTypes.string,
     PropTypes.number,
     PropTypes.instanceOf(Date),
+    PropTypes.arrayOf(
+      PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+    ),
   ]),
   name: PropTypes.string,
   disabled: PropTypes.bool,

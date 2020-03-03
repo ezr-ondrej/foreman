@@ -6,10 +6,10 @@ import { arrangeItemsBySelectedIDs } from './DualListHelper';
 import './DualList.scss';
 
 const DualList = props => {
-  const { id, items, selectedIDs, inputProps, disabled, error } = props;
+  const { id, items, value, inputProps, disabled, error } = props;
   const { selectedList, unselectedlist } = arrangeItemsBySelectedIDs(
     items,
-    selectedIDs
+    value
   );
 
   return (
@@ -39,7 +39,7 @@ DualList.propTypes = {
         .isRequired,
     })
   ),
-  selectedIDs: PropTypes.arrayOf(
+  value: PropTypes.arrayOf(
     PropTypes.oneOfType([PropTypes.string, PropTypes.number])
   ),
   inputProps: PropTypes.object,
@@ -50,7 +50,7 @@ DualList.propTypes = {
 DualList.defaultProps = {
   id: null,
   items: [],
-  selectedIDs: [],
+  value: [],
   inputProps: {},
   disabled: false,
   error: null,

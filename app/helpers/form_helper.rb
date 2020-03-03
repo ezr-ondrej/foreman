@@ -129,13 +129,10 @@ module FormHelper
     end
 
     input_id = "#{f.object_name}_#{attr_ids}"
-    error_messages = f.object.errors[attr].map(&:inspect).join(', ')
-    props = {
+    props = options.merge({
       id: "dual_list_#{input_id}",
-      label: options[:label],
-      error: error_messages,
       items: items,
-      selectedIDs: selected_ids,
+      value: selected_ids,
       inputProps: {
         name: "#{f.object_name}[#{attr_ids}][]",
         id: input_id,
@@ -143,12 +140,10 @@ module FormHelper
         form: f.options[:html][:id],
       },
       disabled: html_options['disabled'],
-    }.to_json
+    })
 
-    field(f, attr, options) do
-      f.hidden_field(attr_ids, multiple: true, :value => nil, :id => '') +
-      react_component('DualList', props)
-    end
+    f.hidden_field(attr_ids, multiple: true, :value => nil, :id => '') +
+    react_form_input('dualList', f, attr, props)
   end
 
   def line_count(f, attr)
