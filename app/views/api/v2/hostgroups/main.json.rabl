@@ -8,8 +8,9 @@ attributes :subnet_id, :subnet_name, :operatingsystem_id, :operatingsystem_name,
   :ptable_id, :ptable_name, :medium_id, :medium_name, :pxe_loader,
   :subnet6_id, :subnet6_name, :compute_resource_id, :compute_resource_name,
   :architecture_id, :architecture_name, :realm_id, :realm_name, :created_at, :updated_at
+
 Hostgroup.nested_attribute_fields.each do |nested_field|
-  attribute :"inherited_#{nested_field}" if hostgroup[nested_field].nil?
+  node(:"inherited_#{nested_field}") { |hostgroup| hostgroup.nested(nested_field) if hostgroup[nested_field].nil? }
 end
 
 if @parameters
