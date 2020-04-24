@@ -401,6 +401,7 @@ class User < ApplicationRecord
   # * a parameter-like Hash (eg. :controller => 'projects', :action => 'edit')
   # * a permission Symbol (eg. :edit_project)
   def allowed_to?(action)
+    return false if disabled?
     return true if admin?
     if action.is_a?(Hash) || action.is_a?(ActionController::Parameters)
       action = Foreman::AccessControl.normalize_path_hash(action)
