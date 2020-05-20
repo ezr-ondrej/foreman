@@ -51,7 +51,7 @@ InputFactory.propTypes = {
 InputFactory.defaultProps = {
   type: undefined,
   name: undefined,
-  value: undefined,
+  value: '',
   className: '',
   required: false,
   disabled: false,
