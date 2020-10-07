@@ -189,11 +189,14 @@ end
 def clear_plugins
   @klass = Foreman::Plugin
   @plugins_backup = @klass.registered_plugins
+  @registry_backup = @klass.registries
   @klass.clear
+  @klass.initialize_registries
 end
 
 def restore_plugins
   @klass.clear
+  @klass.initialize_registries(@registry_backup)
   @klass.instance_variable_set('@registered_plugins', @plugins_backup)
 end
 

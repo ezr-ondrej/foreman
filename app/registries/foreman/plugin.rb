@@ -40,11 +40,6 @@ module Foreman #:nodoc:
   class Plugin
     @registered_plugins = {}
     @tests_to_skip = {}
-    @fact_importer_registry = Plugin::FactImporterRegistry.new
-    @report_scanner_registry = Plugin::ReportScannerRegistry.new
-    @report_origin_registry = Plugin::ReportOriginRegistry.new
-    @medium_providers = Plugin::MediumProvidersRegistry.new
-    @graphql_types_registry = Plugin::GraphqlTypesRegistry.new
 
     class << self
       attr_reader   :registered_plugins
@@ -52,6 +47,24 @@ module Foreman #:nodoc:
         :report_origin_registry, :medium_providers,
         :graphql_types_registry, :fact_importer_registry
       private :new
+
+      def initialize_registries(registries = {})
+        @fact_importer_registry = registries[:fact_importer_registry] || Plugin::FactImporterRegistry.new
+        @report_scanner_registry = registries[:report_scanner_registry] || Plugin::ReportScannerRegistry.new
+        @report_origin_registry = registries[:report_origin_registry] || Plugin::ReportOriginRegistry.new
+        @medium_providers = registries[:medium_providers] || Plugin::MediumProvidersRegistry.new
+        @graphql_types_registry = registries[:graphql_types_registry] || Plugin::GraphqlTypesRegistry.new
+      end
+
+      def registries
+        {
+          fact_importer_registry: @fact_importer_registry,
+          report_scanner_registry: @report_scanner_registry,
+          report_origin_registry: @report_origin_registry,
+          medium_providers: @medium_providers,
+          graphql_types_registry: @graphql_types_registry,
+        }
+      end
 
       def def_field(*names)
         class_eval do
@@ -122,6 +135,8 @@ module Foreman #:nodoc:
         with_webpack.select { |plugin| plugin.global_js_files.present? }
       end
     end
+
+    initialize_registries
 
     prepend Foreman::Plugin::Assets
     prepend Foreman::Plugin::SearchOverrides
