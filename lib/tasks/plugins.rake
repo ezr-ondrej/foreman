@@ -27,4 +27,4 @@ namespace :plugin do
   end
 end
 
-Rake::Task["db:migrate"].enhance ['plugin:refresh_migrations']
+# Rake::Task["db:migrate"].enhance ['plugin:refresh_migrations']
