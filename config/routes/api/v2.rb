@@ -59,7 +59,7 @@ Foreman::Application.routes.draw do
 
       resources :dashboard, :only => [:index]
 
-      resources :environments, :except => [:new, :edit] do
+      resources :environments, :except => [:new, :edit], :controller => puppet_plugin && 'foreman_puppet_enc/api/v2/environments' do
         resources :locations, :only => [:index, :show]
         resources :organizations, :only => [:index, :show]
         resources :smart_proxies, :only => [] do
@@ -373,7 +373,7 @@ Foreman::Application.routes.draw do
             end
           end
           resources :hostgroups, :only => [:index, :show]
-          resources :environments, :only => [:index, :show]
+          resources :environments, :only => [:index, :show], :controller => puppet_plugin && 'foreman_puppet_enc/api/v2/environments'
         end
 
         resources :smart_class_parameters, :except => [:new, :edit, :create, :destroy], :controller => puppet_plugin && 'foreman_puppet_enc/api/v2/smart_class_parameters' do
@@ -392,7 +392,7 @@ Foreman::Application.routes.draw do
         resources :realms, :only => [:index, :show]
         resources :subnets, :only => [:index, :show]
         resources :hostgroups, :only => [:index, :show]
-        resources :environments, :only => [:index, :show]
+        resources :environments, :only => [:index, :show], :controller => puppet_plugin && 'foreman_puppet_enc/api/v2/environments'
         resources :users, :only => [:index, :show]
         resources :provisioning_templates, :only => [:index, :show]
         resources :ptables, :only => [:index, :show]
@@ -417,7 +417,7 @@ Foreman::Application.routes.draw do
           resources :realms, :only => [:index, :show]
           resources :subnets, :only => [:index, :show]
           resources :hostgroups, :only => [:index, :show]
-          resources :environments, :only => [:index, :show]
+          resources :environments, :only => [:index, :show], :controller => puppet_plugin && 'foreman_puppet_enc/api/v2/environments'
           resources :users, :only => [:index, :show]
           resources :provisioning_templates, :only => [:index, :show]
           resources :ptables, :only => [:index, :show]
@@ -439,7 +439,7 @@ Foreman::Application.routes.draw do
         resources :realms, :only => [:index, :show]
         resources :subnets, :only => [:index, :show]
         resources :hostgroups, :only => [:index, :show]
-        resources :environments, :only => [:index, :show]
+        resources :environments, :only => [:index, :show], :controller => puppet_plugin && 'foreman_puppet_enc/api/v2/environments'
         resources :users, :only => [:index, :show]
         resources :provisioning_templates, :only => [:index, :show]
         resources :ptables, :only => [:index, :show]
