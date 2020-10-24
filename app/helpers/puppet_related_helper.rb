@@ -67,18 +67,6 @@ module PuppetRelatedHelper
     classes.where(:id => class_vars)
   end
 
-  def puppetclasses_tab(puppetclasses_receiver)
-    content_tag(:div, :class => "tab-pane", :id => "puppet_klasses") do
-      if @environment.present? ||
-          @hostgroup.present? && @hostgroup.environment.present?
-        render "puppetclasses/class_selection", :obj => puppetclasses_receiver
-      else
-        alert(:class => "alert-info", :header => _("Notice"),
-              :text => _("Please select an environment first"))
-      end
-    end
-  end
-
   def puppet_actions
     actions = []
     if authorized_for(:controller => :hosts, :action => :edit)
