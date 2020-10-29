@@ -14,10 +14,6 @@ node do |hostgroup|
   { :all_puppetclasses => partial("api/v2/puppetclasses/base", :object => hostgroup.all_puppetclasses) }
 end
 
-child :config_groups do
-  extends "api/v2/config_groups/main"
-end
-
 node do |hostgroup|
   partial("api/v2/taxonomies/children_nodes", :object => hostgroup)
 end

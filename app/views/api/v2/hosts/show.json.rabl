@@ -14,10 +14,6 @@ node do |host|
   { :all_puppetclasses => partial("api/v2/puppetclasses/base", :object => host.all_puppetclasses) }
 end
 
-child :config_groups do
-  extends "api/v2/config_groups/main"
-end
-
 root_object.facets_with_definitions.each do |_facet, definition|
   node do
     partial(definition.api_single_view, :object => root_object) if definition.api_single_view
