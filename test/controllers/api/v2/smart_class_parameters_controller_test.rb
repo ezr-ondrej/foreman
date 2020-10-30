@@ -8,7 +8,7 @@ class Api::V2::SmartClassParametersControllerTest < ActionController::TestCase
       get :index, params: params
       assert_response :not_implemented
       response = ActiveSupport::JSON.decode(@response.body)
-      assert_equal response['message'], 'To access SmartClassParameters API you need to install Foreman Puppet Enc plugin'
+      assert_equal response['message'], 'To access Smart Class Parameter API you need to install Foreman Puppet Enc plugin'
     end
   end
 
@@ -17,7 +17,7 @@ class Api::V2::SmartClassParametersControllerTest < ActionController::TestCase
     get :show, params: { id: 123 }
     assert_response :not_implemented
     response = ActiveSupport::JSON.decode(@response.body)
-    assert_equal response['message'], 'To access SmartClassParameters API you need to install Foreman Puppet Enc plugin'
+    assert_equal response['message'], 'To access Smart Class Parameter API you need to install Foreman Puppet Enc plugin'
   end
 
   test "should not update" do
@@ -25,6 +25,6 @@ class Api::V2::SmartClassParametersControllerTest < ActionController::TestCase
     patch :update, params: { id: 123 }
     assert_response :not_implemented
     response = ActiveSupport::JSON.decode(@response.body)
-    assert_equal response['message'], 'To access SmartClassParameters API you need to install Foreman Puppet Enc plugin'
+    assert_equal response['message'], 'To access Smart Class Parameter API you need to install Foreman Puppet Enc plugin'
   end
 end
