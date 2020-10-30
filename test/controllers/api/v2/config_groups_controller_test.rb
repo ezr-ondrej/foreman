@@ -1,12 +1,12 @@
 require 'test_helper'
 
-class Api::V2::OverrideValuesControllerTest < ActionController::TestCase
+class Api::V2::ConfigGroupsControllerTest < ActionController::TestCase
   test "should not get index" do
     skip('Foreman Puppet Enc plugin is installed') if Foreman::Plugin.find(:foreman_puppet_enc)
     get :index, params: { smart_class_parameter_id: 123 }
     assert_response :not_implemented
     response = ActiveSupport::JSON.decode(@response.body)
-    assert_equal response['message'], 'To access Override Value API you need to install Foreman Puppet Enc plugin'
+    assert_equal response['message'], 'To access ConfigGroup API you need to install Foreman Puppet Enc plugin'
   end
 
   test "should not get create" do
@@ -14,7 +14,7 @@ class Api::V2::OverrideValuesControllerTest < ActionController::TestCase
     post :create, params: { smart_class_parameter_id: 213 }
     assert_response :not_implemented
     response = ActiveSupport::JSON.decode(@response.body)
-    assert_equal response['message'], 'To access Override Value API you need to install Foreman Puppet Enc plugin'
+    assert_equal response['message'], 'To access ConfigGroup API you need to install Foreman Puppet Enc plugin'
   end
 
   test "should not show" do
@@ -22,7 +22,7 @@ class Api::V2::OverrideValuesControllerTest < ActionController::TestCase
     get :show, params: { smart_class_parameter_id: 213, id: 123 }
     assert_response :not_implemented
     response = ActiveSupport::JSON.decode(@response.body)
-    assert_equal response['message'], 'To access Override Value API you need to install Foreman Puppet Enc plugin'
+    assert_equal response['message'], 'To access ConfigGroup API you need to install Foreman Puppet Enc plugin'
   end
 
   test "should not update" do
@@ -30,7 +30,7 @@ class Api::V2::OverrideValuesControllerTest < ActionController::TestCase
     patch :update, params: { smart_class_parameter_id: 213, id: 123 }
     assert_response :not_implemented
     response = ActiveSupport::JSON.decode(@response.body)
-    assert_equal response['message'], 'To access Override Value API you need to install Foreman Puppet Enc plugin'
+    assert_equal response['message'], 'To access ConfigGroup API you need to install Foreman Puppet Enc plugin'
   end
 
   test "should not destroy" do
@@ -38,6 +38,6 @@ class Api::V2::OverrideValuesControllerTest < ActionController::TestCase
     delete :destroy, params: { smart_class_parameter_id: 213, id: 123 }
     assert_response :not_implemented
     response = ActiveSupport::JSON.decode(@response.body)
-    assert_equal response['message'], 'To access Override Value API you need to install Foreman Puppet Enc plugin'
+    assert_equal response['message'], 'To access ConfigGroup API you need to install Foreman Puppet Enc plugin'
   end
 end
