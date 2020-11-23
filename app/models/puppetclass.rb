@@ -30,7 +30,7 @@ class Puppetclass < ApplicationRecord
   alias_attribute :smart_class_parameters, :class_params
   alias_attribute :smart_class_parameter_ids, :class_param_ids
 
-  default_scope -> { order('puppetclasses.name') }
+  # default_scope -> { order('puppetclasses.name') }
 
   scoped_search :on => :name, :complete_value => :true
   scoped_search :relation => :environments, :on => :name, :complete_value => :true, :rename => "environment"
