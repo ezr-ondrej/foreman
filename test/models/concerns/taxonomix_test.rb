@@ -129,17 +129,17 @@ class TaxonomixTest < ActiveSupport::TestCase
     end
 
     test 'should return objects for not admin user' do
-      envs = []
+      domains = []
       3.times do
-        envs << FactoryBot.create(:environment, :organizations => [@org], :locations => [@loc])
+        domains << FactoryBot.create(:domain, :organizations => [@org], :locations => [@loc])
       end
 
-      assert_equal 3, envs.size
+      assert_equal 3, domains.size
 
       as_user(@user) do
-        environment_scope = Environment.taxonomy_join_scope.all
+        domain_scope = Domain.taxonomy_join_scope.all
         refute User.current.admin?
-        assert_equal envs.sort, environment_scope.to_a.sort
+        assert_equal domains.sort, domain_scope.to_a.sort
       end
     end
   end
