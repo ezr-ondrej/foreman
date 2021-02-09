@@ -81,7 +81,7 @@
       </fieldset>
       <br/>
 
-      <%= slot('HostgroupParams', true, host_errors(@hostgroup)) %>
+      <%= slot('HostgroupParams', true, lookup_values: lookup_values_data(@hostgroup)) %>
 
       <% if authorized_for(:controller => "host_editing", :action => "view_params") %>
         <fieldset>

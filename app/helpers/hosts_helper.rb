@@ -432,8 +432,8 @@ module HostsHelper
       map { |member_hash| member_hash[value_key] }
   end
 
-  def host_errors(host)
-    lookup_values = host.lookup_values.map do |item|
+  def lookup_values_data(host_or_hostgroup)
+    host_or_hostgroup.lookup_values.map do |item|
       {
         :id => item.id,
         :lookup_key_id => item.lookup_key_id,
@@ -441,7 +441,5 @@ module HostsHelper
         :errors => item.errors.to_hash,
       }
     end
-
-    { :resourceErrors => { :lookupValues => lookup_values } }
   end
 end

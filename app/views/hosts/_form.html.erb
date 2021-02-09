@@ -111,7 +111,7 @@
 
         <br/>
 
-        <%= slot('HostParams', true, host_errors(@host)) %>
+        <%= slot('HostParams', true, lookup_values: lookup_values_data(@host)) %>
 
         <br/>
         <% if authorized_for(:controller => "host_editing", :action => "view_params") %>
