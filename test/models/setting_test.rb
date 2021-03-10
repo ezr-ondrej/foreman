@@ -53,7 +53,7 @@ class SettingTest < ActiveSupport::TestCase
   end
 
   test "update an encrypted value should saved encrypted in db with audit, and decrypted while reading" do
-    setting = settings(:attributes63)
+    setting = settings(:encrypted)
     setting.expects(:encryption_key).at_least_once.returns('25d224dd383e92a7e0c82b8bf7c985e815f34cf5')
     setting.value = '123456'
     assert_difference 'setting.audits.count' do
@@ -250,10 +250,6 @@ class SettingTest < ActiveSupport::TestCase
 
   test "entries_per_page should not be zero" do
     check_zero_value_not_allowed_for 'entries_per_page'
-  end
-
-  test "puppet_interval should not be zero" do
-    check_zero_value_not_allowed_for 'puppet_interval'
   end
 
   test "trusted_hosts can be empty array" do

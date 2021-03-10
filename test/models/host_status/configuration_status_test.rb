@@ -53,7 +53,8 @@ class ConfigurationStatusTest < ActiveSupport::TestCase
   test '#out_of_sync? is true if reported_at is set and is too long ago' do
     @status.refresh!
     assert @status.reported_at.present?
-    window = (Setting[:puppet_interval] + Setting[:outofsync_interval]).minutes
+    # adding a default interval
+    window = (30.minutes + Setting[:outofsync_interval]).minutes
     assert @status.reported_at < Time.now.utc - window
 
     assert @status.out_of_sync?

@@ -35,22 +35,6 @@ attributes7:
   category: Setting::Provisioning
   default: /var/lib/puppet/ssl/private_keys/super.some.host.fqdn.pem
   description: SSL Private Key file that foreman would use to communicate with its proxies
-attributes8:
-  name: puppet_interval
-  settings_type: integer
-  category: Setting::Puppet
-  default: 30
-  description: Setting::Puppet interval in minutes
-attributes9:
-  name: default_puppet_environment
-  category: Setting::Puppet
-  default: production
-  description: "The Setting::Puppet environment foreman would default to in case it can't auto detect it"
-attributes13:
-  name: failed_report_email_notification
-  category: Setting::Puppet
-  default: "false"
-  description: Enable Email Alerts per each failed puppet report
 attributes14:
   name: Default_parameters_Lookup_Path
   category: Setting::Provisioning
@@ -66,24 +50,14 @@ attributes16:
   category: Setting::General
   default: 20
   description: The amount of records shown per page in foreman
-attributes17:
-  name: update_environment_from_facts
-  category: Setting::Puppet
-  default: "false"
-  description: Foreman will update a hosts environment from its facts
 attributes18:
   name: idle_timeout
   category: Setting::General
   default: 5
   description: idle timeout
-attributes19:
-  name: enc_environment
-  category: Setting::Puppet
-  default: "true"
-  description: Should Foreman provide puppet environment in ENC yaml output? (this avoids the mismatch error between puppet.conf and ENC environment)
 attributes20:
   name: use_uuid_for_certificates
-  category: Setting::Puppet
+  category: Setting::Provisioning
   default: "false"
   description: "Should Foreman use random UUID's for certificate signing instead of hostnames"
 attributes21:
@@ -240,7 +214,7 @@ attributes58:
   description: 'Ignore interfaces that match these values during facts importing, you can use * wildcard to match names with indexes e.g. macvtap*'
 attributes59:
   name: always_show_configuration_status
-  category: Setting::Puppet
+  category: Setting::Provisioning
   default: "false"
   description: 'All hosts will show a configuration status even when a Puppet smart proxy is not assigned'
 attributes60:
@@ -259,12 +233,6 @@ attributes62:
   category: Setting::Auth
   default: "true"
   description: 'Permits access to BMC interface passwords through ENC YAML output and in templates'
-attributes63:
-  name: password
-  category: Setting::Puppet
-  default: nil
-  description: 'Encrypted password'
-  encrypted: true
 attributes64:
   name: access_unattended_without_build
   category: Setting::Provisioning
@@ -428,3 +396,9 @@ attribute95:
   category: Setting::Provisioning
   default: 'Linux host initial configuration'
   description: "Default host initial configuration template"
+encrypted:
+  name: password
+  category: Setting::General
+  default: nil
+  description: 'Encrypted password'
+  encrypted: true
