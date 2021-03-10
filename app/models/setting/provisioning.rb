@@ -11,6 +11,14 @@ class Setting::Provisioning < Setting
     end
   end
 
+  def self.update_subnets_from_facts_types
+    {
+      'all' => _('All'),
+      'provisioning' => _('Provisioning only'),
+      'none' => _('None'),
+    }
+  end
+
   Setting::BLANK_ATTRS.push(*(default_global_labels + local_boot_labels))
   validates :value, :pxe_template_name => true, :if => proc { |s| s.class.default_global_labels.include?(s.name) }
 
@@ -58,10 +66,22 @@ class Setting::Provisioning < Setting
       set('safemode_render', N_("Enable safe mode config templates rendering (recommended)"), true, N_('Safemode rendering')),
       set('access_unattended_without_build', N_("Allow access to unattended URLs without build mode being used"), false, N_('Access unattended without build')),
       set('manage_puppetca', N_("Foreman will automate certificate signing upon provision of new host"), true, N_('Manage PuppetCA')),
-      set('ignore_puppet_facts_for_provisioning', N_("Stop updating IP address and MAC values from Puppet facts (affects all interfaces)"), false, N_('Ignore Puppet facts for provisioning')),
+      set('matchers_inheritance', N_("Foreman matchers will be inherited by children when evaluating Lookups for Hostgroups, Organizations and Locations"), true, N_('Matchers inheritance')),
+      set('Default_parameters_Lookup_Path', N_("Foreman will evaluate host lookups in this order by default"), ["fqdn", "hostgroup", "os", "domain"], N_('Default parameters lookup path')),
+      set('interpolate_erb_in_parameters', N_("Foreman will parse ERB in parameters and lookup values"), true, N_('Interpolate ERB in parameters')),
+      set('update_subnets_from_facts', N_("Foreman will update a Host's subnet from its facts"), 'none', N_('Update subnets from facts'), nil, { :collection => proc { update_subnets_from_facts_types } }),
+      set('update_hostgroup_from_facts', N_("Foreman will update a Host's Hostgroup from its facts"), true, N_('Update hostgroup from facts')),
+      set('create_new_host_when_facts_are_uploaded', N_("Foreman will create the host when new facts are received"), true, N_('Create new host when facts are uploaded')),
+      set('create_new_host_when_report_is_uploaded', N_("Foreman will create the host when a report is received"), true, N_('Create new host when report is uploaded')),
+      set('location_fact', N_("Hosts created from uploaded facts will be placed in the location this fact dictates. The content of this fact should be the full label of the location."), 'foreman_location', N_('Location fact')),
+      set('organization_fact', N_("Hosts created from uploaded facts will be placed in the organization this fact dictates. The content of this fact should be the full label of the organization."), 'foreman_organization', N_('Organization fact')),
+      set('default_location', N_("Hosts created from uploaded facts that did not send a location fact will be placed in this location"), '', N_('Default location'), nil, { :collection => proc { Hash[Location.all.map { |loc| [loc[:title], loc[:title]] }] } }),
+      set('default_organization', N_("Hosts created from uploaded facts that did not send a organization fact will be placed in this organization"), '', N_('Default organization'), nil, {:collection => proc { Hash[Organization.all.map { |org| [org[:title], org[:title]] }] } }),
+      set('ignore_interface_facts_for_provisioning', N_("Stop updating IP address and MAC values from Puppet facts (affects all interfaces)"), false, N_('Ignore Puppet facts for provisioning')),
       set('ignored_interface_identifiers', N_("Ignore interfaces that match these values during facts importing, you can use * wildcard to match names with indexes e.g. macvtap*"), IGNORED_INTERFACES, N_('Ignore interfaces with matching identifier')),
       set('ignore_facts_for_operatingsystem', N_("Stop updating Operating System from facts"), false, N_('Ignore facts for operating system')),
       set('ignore_facts_for_domain', N_("Stop updating domain values from facts"), false, N_('Ignore facts for domain')),
+      set('always_show_configuration_status', N_("All hosts will show a configuration status even when there is no configuration report for the Host"), false, N_('Always show configuration status')),
       set('query_local_nameservers', N_("Foreman will query the locally configured resolver instead of the SOA/NS authorities"), false, N_('Query local nameservers')),
       set('token_duration', N_("Time in minutes installation tokens should be valid for, 0 to disable token generation"), 60 * 6, N_('Token duration')),
       set('ssh_timeout', N_("Time in seconds before SSH provisioning times out"), 60 * 2, N_('SSH timeout')),
@@ -74,6 +94,7 @@ class Setting::Provisioning < Setting
       set('default_pxe_item_global', N_("Default PXE menu item in global template - 'local', 'discovery' or custom, use blank for template default"), nil, N_("Default PXE global template entry")),
       set('default_pxe_item_local', N_("Default PXE menu item in local template - 'local', 'local_chain_hd0' or custom, use blank for template default"), nil, N_("Default PXE local template entry")),
       set('intermediate_ipxe_script', N_('Intermediate iPXE script for unattended installations'), 'iPXE intermediate script', N_('iPXE intermediate script'), nil, { :collection => proc { Hash[ProvisioningTemplate.unscoped.of_kind(:iPXE).map { |tmpl| [tmpl.name, tmpl.name] }] } }),
+      set('use_uuid_for_certificates', N_("Foreman will use random UUIDs for certificate signing instead of hostnames"), false, N_('Use UUID for certificates')),
       set(
         'destroy_vm_on_host_delete',
         N_("Destroy associated VM on host delete. When enabled, VMs linked to Hosts will be deleted on Compute Resource. When disabled, VMs are unlinked when the host is deleted, meaning they remain on Compute Resource and can be re-associated or imported back to Foreman again. This does not automatically power off the VM"),

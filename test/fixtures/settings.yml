@@ -53,7 +53,7 @@ attributes13:
   description: Enable Email Alerts per each failed puppet report
 attributes14:
   name: Default_parameters_Lookup_Path
-  category: Setting::Puppet
+  category: Setting::Provisioning
   default: ["fqdn", "hostgroup", "os", "domain"]
   description: The Default path in which foreman resolves host specific variables
 attributes15:
@@ -139,7 +139,7 @@ attribute32:
   settings_type: array
 attribute37:
   name: create_new_host_when_facts_are_uploaded
-  category: Setting::Puppet
+  category: Setting::Provisioning
   default: "true"
   description: "Foreman will create the host when new facts are received"
 attribute38:
@@ -149,7 +149,7 @@ attribute38:
   description: "Should we use the originating IP of the built request to update the Host's IP?"
 attribute40:
   name: interpolate_erb_in_parameters
-  category: Setting::Puppet
+  category: Setting::Provisioning
   default: "true"
   description: "Should Foreman parse ERB to return dynamic parameters?"
 attribute41:
@@ -159,7 +159,7 @@ attribute41:
   description: "Should Foreman use the short hostname instead of the FQDN for creating new virtual machines"
 attribute42:
   name: create_new_host_when_report_is_uploaded
-  category: Setting::Puppet
+  category: Setting::Provisioning
   default: "true"
   description: "Foreman will create the host when a report is received"
 attributes43:
@@ -169,22 +169,22 @@ attributes43:
   description: The URL Foreman should point to in templates etc
 attributes44:
   name: default_organization
-  category: Setting::Puppet
+  category: Setting::Provisioning
   default: 'Organization 1'
   description: 'Default organization when importing hosts'
 attributes45:
   name: default_location
-  category: Setting::Puppet
+  category: Setting::Provisioning
   default: 'Location 1'
   description: 'Default location when importing hosts'
 attributes46:
   name: location_fact
-  category: Setting::Puppet
+  category: Setting::Provisioning
   default: 'foreman_location'
   description: 'Fact to set location from when importing hosts'
 attributes47:
   name: organization_fact
-  category: Setting::Puppet
+  category: Setting::Provisioning
   default: 'foreman_organization'
   description: 'Fact to set organization from when importing hosts'
 attributes49:
@@ -220,7 +220,7 @@ attributes54:
 attributes55:
   name: outofsync_interval
   settings_type: integer
-  category: Setting::Puppet
+  category: Setting::General
   default: 5
   description: "Duration in minutes after the Puppet interval for servers to be classed as out of sync."
 attributes56:
@@ -274,7 +274,7 @@ attributes64:
   settings_type: 'boolean'
 attributes65:
   name: update_subnets_from_facts
-  category: Setting::Puppet
+  category: Setting::Provisioning
   default: "none"
   description: 'Foreman will update a hosts subnets from its facts'
 attributes66:
@@ -415,7 +415,7 @@ attribute92:
   description: 'Name of the external auth source where unknown externally authentication users (see authorize_login_delegation) should be created (keep unset to prevent the autocreation)'
 attribute93:
   name: update_hostgroup_from_facts
-  category: Setting::Puppet
+  category: Setting::Provisioning
   default: true
   description: "Foreman will update a host's hostgroup from its facts"
 attribute94:
