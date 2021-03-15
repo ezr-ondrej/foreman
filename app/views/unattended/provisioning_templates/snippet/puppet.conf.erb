@@ -5,6 +5,7 @@ model: ProvisioningTemplate
 snippet: true
 -%>
 <%
+if @host.puppetmaster
   os_family = @host.operatingsystem.family
   os_name   = @host.operatingsystem.name
 
@@ -47,3 +48,4 @@ ca_server       = <%= @host.puppet_ca_server %>
 certname        = <%= @host.certname %>
 environment     = <%= @host.environment %>
 server          = <%= @host.puppetmaster %>
+<%- end -%>

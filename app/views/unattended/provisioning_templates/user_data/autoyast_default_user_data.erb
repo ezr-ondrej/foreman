@@ -8,7 +8,7 @@ oses:
 -%>
 <%
   # safemode renderer does not support unary negation
-  pm_set = @host.puppetmaster.empty? ? false : true
+  pm_set = @host.try(:puppetmaster).blank? ? false : true
   puppet_enabled = pm_set || host_param_true?('force-puppet')
   salt_enabled = host_param('salt_master') ? true : false
 -%>

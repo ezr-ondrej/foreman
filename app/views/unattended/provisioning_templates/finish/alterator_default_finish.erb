@@ -9,7 +9,7 @@ oses:
 #!/bin/sh
 
 <%= snippet 'fix_hosts' %>
-
+<% if @host.respond_to?(:puppetmaster) %>
 apt-get update >/dev/null 2>/dev/null
 apt-get -y install puppet >/dev/null 2>/dev/null
 
@@ -21,6 +21,12 @@ EOF
 /usr/bin/puppet agent --config /etc/puppet/puppet.conf -o --tags no_such_tag --server <%= @host.puppetmaster %> --no-daemonize
 <%= snippet 'built' %>
 /sbin/chkconfig puppetd on
+
+<% else %>
+
+<%= snippet 'built' %>
+
+<% end %>
 
 <%= snippet 'schedule_reboot' -%>
 

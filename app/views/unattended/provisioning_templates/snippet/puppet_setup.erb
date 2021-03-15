@@ -6,6 +6,7 @@ description: this snippet will configure the Puppet agent
 snippet: true
 -%>
 <%
+if @host.respond_to?(:puppetmaster)
 os_family = @host.operatingsystem.family
 os_major  = @host.operatingsystem.major.to_i
 os_name   = @host.operatingsystem.name
@@ -156,5 +157,6 @@ export FACTER_is_installer=true
 <% end -%>
 <% if @host.provision_method == 'image' -%>
 <%= bin_path %>/puppet resource service puppet ensure=running
+<% end -%>
 <% end -%>
 <% end -%>
