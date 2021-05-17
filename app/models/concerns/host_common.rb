@@ -13,18 +13,6 @@ module HostCommon
   end
 
   included do
-    belongs_to_proxy :puppet_proxy,
-      :feature => N_('Puppet'),
-      :label => N_('Puppet Proxy'),
-      :description => N_('Use the Puppetserver configured on this Smart Proxy'),
-      :api_description => N_('Puppet proxy ID')
-
-    belongs_to_proxy :puppet_ca_proxy,
-      :feature => 'Puppet CA',
-      :label => N_('Puppet CA Proxy'),
-      :description => N_('Use the Puppetserver CA configured on this Smart Proxy'),
-      :api_description => N_('Puppet CA proxy ID')
-
     belongs_to :architecture
     belongs_to :operatingsystem
 
@@ -40,7 +28,7 @@ module HostCommon
     # See "def lookup_values_attributes=" under, for the implementation of accepts_nested_attributes_for :lookup_values
     accepts_nested_attributes_for :lookup_values
 
-    before_save :check_puppet_ca_proxy_is_required?, :crypt_root_pass
+    before_save :crypt_root_pass
     before_save :set_lookup_value_matcher
 
     # Replacement of accepts_nested_attributes_for :lookup_values,
@@ -83,41 +71,6 @@ module HostCommon
   end
   def url_for_boot(file)
     os.url_for_boot(medium_provider, file)
-  end
-
-  def puppetca?
-    return false if respond_to?(:managed?) && !managed?
-    puppetca_exists?
-  end
-
-  def puppetca_exists?
-    !!(puppet_ca_proxy && puppet_ca_proxy.url.present?)
-  end
-
-  def puppet_server_uri
-    return unless puppet_proxy
-    url = puppet_proxy.setting('Puppet', 'puppet_url')
-    url ||= "https://#{puppet_proxy}:8140"
-    URI(url)
-  end
-
-  # The Puppet server FQDN or an empty string. Exposed as a provisioning macro
-  def puppet_server
-    puppet_server_uri.try(:host) || ''
-  end
-  alias_method :puppetmaster, :puppet_server
-
-  def puppet_ca_server_uri
-    return unless puppet_ca_proxy
-    url = puppet_ca_proxy.setting('Puppet CA', 'puppet_url')
-    url ||= "https://#{puppet_ca_proxy}:8140"
-    URI(url)
-  end
-
-  # The Puppet CA server FQDN or an empty string. Exposed as a provisioning
-  # macro.
-  def puppet_ca_server
-    puppet_ca_server_uri.try(:host) || ''
   end
 
   # If the host/hostgroup has a medium then use the path from there
@@ -185,17 +138,5 @@ module HostCommon
     # the #attribute_names method is cached, so it's not going to be a performance issue
     return true unless self.class.attribute_names.include?("lookup_value_matcher")
     self.lookup_value_matcher = lookup_value_match
-  end
-
-  private
-
-  # fall back to our puppet proxy in case our puppet ca is not defined/used.
-  def check_puppet_ca_proxy_is_required?
-    return true if puppet_ca_proxy_id.present? || puppet_proxy_id.blank?
-    if puppet_proxy.has_feature?('Puppet CA')
-      self.puppet_ca_proxy ||= puppet_proxy
-    end
-  rescue
-    true # we don't want to break anything, so just skipping.
   end
 end
