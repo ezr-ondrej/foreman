@@ -12,7 +12,7 @@ http://guides.rubyonrails.org/engines.html[rails engines] work.
 == Naming your plugin
 
 It's strongly recommended that your plugin begins with the string
-"foreman" to help people identify its relationship with the project.
+"foreman" to help people identify its relationship with the Foreman project.
 Plugins are published as gems to rubygems.org, so check that the name
 you wish to use is free - again, using a standard prefix helps. The
 prefix is also assumed in the installer, so it makes adding support there
